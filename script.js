@@ -15,7 +15,9 @@ function submitForm() {
         let maxNumber = sortedNumbers[sortedNumbers.length - 1];
         let mediana = searchMediana(sortedNumbers);
         let middle = arithmeticMean(sortedNumbers);
-        document.getElementById('result').innerText = 'Min num: ' + minNumber+'\n'+'Max num: ' + maxNumber+'\n'+'Mediana: ' + mediana+ '\n'+'Arithmetic mean: '+middle;
+        let largestUp =largestGoUP(numbers);
+        let largestDown =largestGoDown(numbers);
+        document.getElementById('result').innerText = 'Min num: ' + minNumber+'\n'+'Max num: ' + maxNumber+'\n'+'Mediana: ' + mediana+ '\n'+'Arithmetic mean: '+middle+ '\n'+'Largest go up: '+largestUp+ '\n'+'Largest go down: '+largestDown;
       };
 
       reader.readAsText(file);
@@ -66,4 +68,48 @@ function submitForm() {
         
     return (sum/(arr.length));
     }
+  }
+  function largestGoUP(arr){
+    if (arr.length <= 1) {
+      return arr;
+    }
+  
+    let temporary = [arr[0]];
+    let main = [];
+  
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i+1] > arr[i]) {
+        temporary.push(arr[i+1]);
+      } else {
+        if(temporary.length>main.length){
+          main=temporary;
+        }
+        temporary=[];
+        temporary.push(arr[i+1]);
+      }
+    }
+  
+    return main;
+  }
+  function largestGoDown(arr){
+    if (arr.length <= 1) {
+      return arr;
+    }
+  
+    let temporary = [arr[0]];
+    let main = [];
+  
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i+1] < arr[i]) {
+        temporary.push(arr[i+1]);
+      } else {
+        if(temporary.length>main.length){
+          main=temporary;
+        }
+        temporary=[];
+        temporary.push(arr[i+1]);
+      }
+    }
+  
+    return main;
   }
